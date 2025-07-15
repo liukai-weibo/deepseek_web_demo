@@ -1,4 +1,3 @@
-English Version
 Simple Local Proxy Server
 A Node.js based local proxy server designed for API debugging and request forwarding. Comes with a Windows one-click startup script for easy deployment.
 
