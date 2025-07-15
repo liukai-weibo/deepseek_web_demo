@@ -29,3 +29,16 @@ Default listening port is **3000**. Modify it in proxy.js or the PORT variable i
 📦 Dependencies
 
 Dependencies will be installed automatically on startup:**npm install**
+
+ollama 端口占用问题解决：
+
+1.右下角关闭ollama小程序（ollama list 会导致程序重新启动导致ollama端口占用）
+
+2.查看占用端口：
+netstat -ano | findstr :<占用端口>
+
+3.杀死占用端口进程：
+taskkill /PID <占用端口的id> /F
+
+4.重启ollama服务：
+ollama serve。
