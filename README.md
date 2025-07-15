@@ -9,9 +9,13 @@ deepseek的可视化聊天，流式
 ## 📁 项目结构
 
 ├── proxy.js # 代理服务器主逻辑
+
 ├── start-proxy.bat # Windows 一键启动脚本
+
 ├── package.json # Node.js 项目描述
+
 ├── node_modules/ # 第三方依赖（首次启动自动安装）
+
 └──char.html # 前端文件
 
 双击运行启动脚本
