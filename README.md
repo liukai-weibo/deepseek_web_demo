@@ -19,3 +19,13 @@ start-proxy.bat
 
 成功后浏览器访问：
 http://localhost:3000
+
+🛠 使用说明
+核心脚本为 proxy.js，你可以根据需求自定义代理规则。
+
+默认监听端口为 3000，可根据需要修改 proxy.js 中的端口配置或 start-proxy.bat 脚本中的 PORT 变量。
+
+📦 依赖安装说明
+项目启动时会自动执行：
+npm install
+
