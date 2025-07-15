@@ -13,19 +13,19 @@ A Node.js based local proxy server designed for API debugging and request forwar
 ├── node_modules/      # Dependencies (installed automatically on first run)
 
 └── char.html          # Frontend page file
+
 🚀 Quick Start
+
 1.Extract the **node_rodules.rar** file after the first pull
 
 2.Double-click to run the startup script: **start-proxy.bat**
 
 After successful startup, your browser will automatically open to: **http://localhost:3000**
-🛠 Usage
+
 The core script is proxy.js. You can customize proxy rules as needed.
 
 Default listening port is 3000. Modify it in proxy.js or the PORT variable inside start-proxy.bat if needed.
 
 📦 Dependencies
-Dependencies will be installed automatically on startup:
 
-bash
-npm install
+Dependencies will be installed automatically on startup:**npm install**
