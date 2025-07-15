@@ -14,6 +14,7 @@ A Node.js based local proxy server designed for API debugging and request forwar
 └── char.html          # Frontend page file
 
 🚀 Quick Start
+前提是ollama先把deepseek运行出来:ollama serve
 
 1.Extract the **node_rodules.rar** file after the first pull
 
