@@ -13,3 +13,9 @@ deepseek的可视化聊天，流式
 ├── package.json # Node.js 项目描述
 ├── node_modules/ # 第三方依赖（首次启动自动安装）
 └──char.html # 前端文件
+
+双击运行启动脚本
+start-proxy.bat
+
+成功后浏览器访问：
+http://localhost:3000
