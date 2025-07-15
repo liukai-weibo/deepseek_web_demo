@@ -14,14 +14,11 @@ A Node.js based local proxy server designed for API debugging and request forwar
 
 └── char.html          # Frontend page file
 🚀 Quick Start
-Double-click to run the startup script:
+1.Extract the **node_rodules.rar** file after the first pull
 
-bat
-start-proxy.bat
-After successful startup, your browser will automatically open to:
+2.Double-click to run the startup script: **start-proxy.bat**
 
-arduino
-http://localhost:3000
+After successful startup, your browser will automatically open to: **http://localhost:3000**
 🛠 Usage
 The core script is proxy.js. You can customize proxy rules as needed.
 
