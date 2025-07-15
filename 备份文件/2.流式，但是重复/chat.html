@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>DeepSeek 本地聊天</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    #chat-container { width: 600px; margin: 40px auto; background: white; border-radius: 10px;
+      box-shadow: 0 0 10px #ccc; overflow: hidden; display: flex; flex-direction: column; height: 80vh; }
+    #chat-box { flex: 1; padding: 20px; overflow-y: auto; }
+    .msg { margin: 10px 0; }
+    .user { text-align: right; color: #007bff; }
+    .ai { text-align: left; color: #333; }
+    #input-box { display: flex; border-top: 1px solid #ddd; }
+    #input { flex: 1; padding: 10px; border: none; font-size: 16px; }
+    #send-btn, #new-btn { padding: 10px 20px; border: none; background: #007bff; color: white; cursor: pointer; }
+    #new-btn { background: #6c757d; }
+  </style>
+</head>
+<body>
+<div id="chat-container">
+  <div id="chat-box"></div>
+  <div id="input-box">
+    <input type="text" id="input" placeholder="请输入..." />
+    <button id="send-btn">发送</button>
+    <button id="new-btn">新对话</button>
+  </div>
+</div>
+<script>
+  const apiURL = "http://localhost:3000/chat";
+  const modelName = "deepseek-r1:14b";
+  let messages = [
+    { role: "system", content: "你是一个狗蛋，你的回复需要加上狗蛋两个字～" }
+  ];
+  const chatBox = document.getElementById("chat-box");
+  const input = document.getElementById("input");
+  function appendMessage(role, text) {
+    const div = document.createElement("div");
+    div.className = "msg " + (role === "user" ? "user" : "ai");
+    div.textContent = (role === "user" ? "刘凯：" : "周林林：") + text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+  async function sendMessage() {
+  const userText = input.value.trim();
+  if (!userText) return;
+  appendMessage("user", userText);
+  messages.push({ role: "user", content: userText });
+  input.value = "";
+
+  const payload = {
+    model: modelName,
+    messages: messages,
+    stream: true,
+    temperature: 0.8
+  };
+
+  try {
+    const res = await fetch(apiURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let fullText = "";
+    let role = "assistant";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split("\n").filter(line => line.trim());
+
+      for (const line of lines) {
+        if (line.startsWith("{")) {
+          const json = JSON.parse(line);
+          const content = json.message?.content || "";
+          fullText += content;
+          appendMessage(role, fullText);
+        }
+      }
+    }
+
+    messages.push({ role, content: fullText });
+  } catch (err) {
+    appendMessage("assistant", "（出错了，流式连接失败）");
+    console.error(err);
+  }
+}
+
+  document.getElementById("send-btn").onclick = sendMessage;
+  input.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
+  document.getElementById("new-btn").onclick = () => {
+    messages = [{ role: "system", content: "你是一个狗蛋，句子结尾要加上狗蛋" }];
+    chatBox.innerHTML = "";
+  };
+</script>
+</body>
+</html>
