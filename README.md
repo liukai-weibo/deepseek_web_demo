@@ -21,9 +21,9 @@ A Node.js based local proxy server designed for API debugging and request forwar
 
 After successful startup, your browser will automatically open to: **http://localhost:3000**
 
-The core script is proxy.js. You can customize proxy rules as needed.
+The core script is **proxy.js**. You can customize proxy rules as needed.
 
-Default listening port is 3000. Modify it in proxy.js or the PORT variable inside start-proxy.bat if needed.
+Default listening port is **3000**. Modify it in proxy.js or the PORT variable inside start-proxy.bat if needed.
 
 📦 Dependencies
 
